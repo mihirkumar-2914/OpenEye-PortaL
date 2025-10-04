@@ -17,10 +17,33 @@
         }
         header {
             background-color: var(--card-bg); padding: 15px 50px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            display: flex; justify-content: space-between; align-items: center;
+            display: flex; justify-content: space-between; align-items: center; /* Ensures proper spacing */
         }
         .logo { font-size: 1.8em; font-weight: 700; color: var(--primary-blue); text-decoration: none; }
         .back-link { color: var(--primary-blue); text-decoration: none; font-weight: 600; }
+        
+        /* --- NEW SEARCH BAR STYLES --- */
+        .search-container {
+            flex-grow: 1; /* Allows the search bar to take up available space */
+            max-width: 400px; /* Limits its size for a better look */
+            margin: 0 40px;
+        }
+        .search-container input {
+            width: 100%;
+            padding: 8px 15px;
+            border: 1px solid #ced4da;
+            border-radius: 20px;
+            box-sizing: border-box;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+        .search-container input:focus {
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+            outline: none;
+        }
+        /* --- END NEW SEARCH BAR STYLES --- */
+        
         .container { max-width: 1000px; margin: 40px auto; padding: 30px; }
         h1 { color: var(--primary-blue); text-align: center; margin-bottom: 30px; }
         .complaint-list { display: grid; gap: 20px; }
@@ -66,6 +89,10 @@
 
     <header>
         <a href="index.html" class="logo">👁️ OpenEye</a>
+
+        <div class="search-container">
+            <input type="search" placeholder="Search Complaint ID or Domain..." aria-label="Search">
+        </div>
         <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
     </header>
 
@@ -168,7 +195,7 @@
             const complaintIndex = complaints.findIndex(c => c.id === complaintId);
 
             if (complaintIndex !== -1) {
-                // Get solver details from active user session
+                // Get solver details from active user session (mock data retrieval)
                 const govUsers = JSON.parse(localStorage.getItem('openeye_users') || '[]').filter(u => u.type === 'government');
                 const solver = govUsers.find(u => u.email === activeUser.identifier);
 
