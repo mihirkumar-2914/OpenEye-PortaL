@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Problems Solved - OpenEye Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --bg-light: #f4f7f9;
+            --primary-blue: #007bff;
+            --accent-teal: #17a2b8;
+            --text-dark: #343a40;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --header-bg: rgba(255, 255, 255, 0.95);
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            background-image: url('https://source.unsplash.com/random/1920x1080/?city,sky');
+            background-size: cover;
+            background-attachment: fixed;
+        }
+        header {
+            background-color: var(--header-bg);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .logo { font-size: 1.8em; font-weight: 700; color: var(--primary-blue); }
+        .back-button {
+            background-color: var(--primary-blue); color: white; border: none; padding: 8px 15px;
+            border-radius: 5px; cursor: pointer; font-weight: 500; transition: background-color 0.3s;
+        }
+        .back-button:hover { background-color: #0056b3; }
+        
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+
+        /* Search Bar & Problem List Styles */
+        .search-container { 
+            margin-bottom: 30px; 
+            padding: 20px;
+            background: var(--header-bg);
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+        .search-container input {
+            padding: 12px 15px; 
+            width: 80%; 
+            max-width: 600px; 
+            border: 1px solid #ccc; 
+            border-radius: 25px;
+            font-size: 1.1em;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .problem-list { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px; 
+        }
+        .problem-item { 
+            background: var(--card-bg); 
+            padding: 20px; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); 
+            border-left: 5px solid green; /* Solved color indicator */
+        }
+        .problem-item h3 { 
+            margin-top: 0; 
+            color: green; 
+            font-size: 1.2em; 
+            border-bottom: 1px dashed #ddd; 
+            padding-bottom: 10px; 
+            margin-bottom: 10px;
+        }
+        .problem-item p { margin: 5px 0; font-size: 0.95em; }
+        .problem-item strong { color: var(--primary-blue); }
+
+        footer { background-color: var(--text-dark); color: white; text-align: center; padding: 20px 0; margin-top: 50px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">👁️ Problems Solved</div>
+        <button class="back-button" onclick="window.location.href='index.html'">
+            <i class="fas fa-home"></i> Back to Portal
+        </button>
+    </header>
+
+    <div class="container">
+        
+        <div class="search-container">
+            <input type="text" id="problemSearch" placeholder="Search by Authority, Area, or Case ID..." onkeyup="filterProblems()">
+        </div>
+
+        <div class="problem-list" id="problemList">
+            <div class="problem-item" data-search="PWD Pothole Central Market">
+                <h3>Case ID: PWD-2023-45</h3>
+                <p><strong>Area:</strong> Central Market Roads</p>
+                <p><strong>Authority:</strong> Public Works Department (PWD)</p>
+                <p><strong>Description:</strong> Large pothole reported on Main Street.</p>
+                <p><strong>Status:</strong> **FIXED** and documented.</p>
+            </div>
+
+            <div class="problem-item" data-search="Municipal Corp Dumping Sanitation">
+                <h3>Case ID: MC-2024-102</h3>
+                <p><strong>Area:</strong> Sector 7 Residential</p>
+                <p><strong>Authority:</strong> Municipal Corporation</p>
+                <p><strong>Description:</strong> Illegal dumping site cleared; surveillance installed.</p>
+                <p><strong>Status:</strong> **CLEARED** and under monitoring.</p>
+            </div>
+
+            <div class="problem-item" data-search="Water Board Water Leak Sector 3">
+                <h3>Case ID: WB-2023-78</h3>
+                <p><strong>Area:</strong> Sector 3 Water Supply</p>
+                <p><strong>Authority:</strong> Water Board</p>
+                <p><strong>Description:</strong> Main waterline leak reported on Oct 1st was repaired.</p>
+                <p><strong>Status:</strong> **REPAIRED** successfully.</p>
+            </div>
+
+            </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 OpenEye Portal. Promoting transparency and accountability.</p>
+    </footer>
+
+    <script>
+        function filterProblems() {
+            const query = document.getElementById('problemSearch').value.toLowerCase();
+            const items = document.querySelectorAll('.problem-item');
+
+            items.forEach(item => {
+                // Search the inner text of the item, or use a data-attribute for better targeting
+                const searchText = item.getAttribute('data-search').toLowerCase(); 
+                
+                if (searchText.includes(query)) {
+                    item.style.display = 'block'; // Show the item
+                } else {
+                    item.style.display = 'none'; // Hide the item
+                }
+            });
+        }
+    </script>
+</body>
+</html>
